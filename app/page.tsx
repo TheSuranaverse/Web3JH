@@ -72,7 +72,7 @@ export default function Home() {
     { src: "/solanaLogo 1.png", alt: "Solana" },
     { src: "/tezos-india-logo 1.png", alt: "Tezos India" },
     { src: "/AvalancheLogo_Horizontal_4C_Primary_KO.png", alt: "Avalanche" },
-    { src: "/ascendex.png", alt: "AscendEx - Crypto Exchange Partner" },
+    { src: "/Ascendex.png", alt: "AscendEx - Crypto Exchange Partner" },
     { src: "/Shardeum-768x432-PhotoRoom 1.png", alt: "Shardeum - Blockchain Partner" },
     { src: "/dapps 1.png", alt: "DApps.co - Decentralized Applications Partner" },
     { src: "/Group-4-7-1024x248.png", alt: "NomoEx" },

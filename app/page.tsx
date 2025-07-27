@@ -1,66 +1,120 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Menu, X, Globe, ArrowRight, CheckCircle, Users, Calendar, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
+import Image from 'next/image';
 import Navigation from '@/components/Navigation';
 import { motion } from 'framer-motion';
 
 export default function Home() {
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [imageErrors, setImageErrors] = useState(new Set());
+
+  useEffect(() => {
+    // Preload critical images
+    const criticalImages = [
+      '/Asset 1 21.png',
+      '/Web3 JharkhandHomePage.png',
+      '/avax_rnc1.webp'
+    ];
+
+    const imagePromises = criticalImages.map(src => {
+      return new Promise((resolve, reject) => {
+        const img = new window.Image();
+        img.onload = resolve;
+        img.onerror = reject;
+        img.src = src;
+      });
+    });
+
+    Promise.allSettled(imagePromises).then(() => {
+      setIsLoading(false);
+    });
+  }, []);
+
   const stats = [
-    { label: 'Active Members', value: '500+', icon: Users },
+    { label: 'Active Members', value: '1,000+', icon: Users },
     { label: 'College Chapters', value: '8', icon: Globe },
-    { label: 'Events Hosted', value: '15+', icon: Calendar },
+    { label: 'Events Hosted', value: '20+', icon: Calendar },
     { label: 'Projects Built', value: '5+', icon: Heart },
   ];
 
   const highlights = [
     {
       title: 'Educational Workshops',
-      description: 'Regular hands-on workshops on blockchain development, smart contracts, and DeFi protocols',
+      description: 'Regular hands-on workshops on blockchain development, smart contracts, dApps and DeFi protocols',
       icon: '🎓'
     },
     {
       title: 'Industry Partnerships',
-      description: 'Collaborations with leading Web3 companies and blockchain foundations worldwide',
+      description: 'Collaborations with leading Web3 companies, communities and blockchain foundations worldwide',
       icon: '🤝'
     },
     {
       title: 'Student Community',
-      description: 'Active chapters in premier institutions across Jharkhand fostering innovation',
+      description: 'Active student chapters in premier institutions across Jharkhand fostering innovation',
       icon: '👥'
     },
     {
       title: 'Real Projects',
-      description: 'Building practical blockchain solutions addressing local and global challenges',
+      description: 'Building practical blockchain and decentealised solutions addressing local and global challenges',
       icon: '🚀'
     }
   ];
 
-  const images = [
-    "/foundership_logo.png",
-    "/solanaLogo 1.png",
-    "/tezos-india-logo 1.png",
-    "/AvalancheLogo_Horizontal_4C_Primary_KO.png",
-    "/ascendex_logo.png",
-    "/Shardeum-768x432-PhotoRoom 1.png",
-    "/dapps 1.png",
-    "/Group-4-7-1024x248.png",
-    "/trans. (white)(horizontal).png",
-    "/bg_black_small-removebg-preview 1.png",
-    "/20230810_173627_0001-removebg-preview 1.png",
-    "/White H.png",
-    "/image 9.png"
+  const partnerImages  = [
+    { src: "/foundership_logo.png", alt: "Foundership"},
+    { src: "/solanaLogo 1.png", alt: "Solana" },
+    { src: "/tezos-india-logo 1.png", alt: "Tezos India" },
+    { src: "/AvalancheLogo_Horizontal_4C_Primary_KO.png", alt: "Avalanche" },
+    { src: "/ascendex.png", alt: "AscendEx - Crypto Exchange Partner" },
+    { src: "/Shardeum-768x432-PhotoRoom 1.png", alt: "Shardeum - Blockchain Partner" },
+    { src: "/dapps 1.png", alt: "DApps.co - Decentralized Applications Partner" },
+    { src: "/Group-4-7-1024x248.png", alt: "NomoEx" },
+    { src: "/trans. (white)(horizontal).png", alt: "Paycoin Capital" },
+    { src: "/bg_black_small-removebg-preview 1.png", alt: "DEVs Dungeon - Developer Community" },
+    { src: "/20230810_173627_0001-removebg-preview 1.png", alt: "Techavtar" },
+    { src: "/White H.png", alt: "Strix media" },
+    { src: "/image 9.png", alt: "Zuraverse" }
   ];
 
   const slideWidth = 350;
   const gap = 30;
 
-  const trainImages = [...images, ...images];
-  const totalWidth = images.length * (slideWidth + gap);
+  const trainImages = [...partnerImages , ...partnerImages ];
+  const totalWidth = partnerImages.length * (slideWidth + gap);
+
+  const handleImageError = (src: string) => {
+    setImageErrors(prev => new Set(prev).add(src));
+  };
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Web3JH | India's Leading Web3 & Blockchain Community",
+    "description": "India's leading Web3 & Blockchain community based in Jharkhand. Empowering developers, crypto enthusiasts, and startups to build decentralized applications.",
+    "url": "https://web3jh.xyz",
+    "logo": "https://web3jh.xyz/Web3JH_512.png",
+    "foundingDate": "2022",
+    "address": {
+      "@type": "PostalAddress",
+      "addressRegion": "Jharkhand",
+      "addressCountry": "IN"
+    },
+    "sameAs": [
+      "https://chat.whatsapp.com/D1sSYDN7Lxn7ZUvfxoBAUi",
+      "https://lu.ma/web3jh"
+    ],
+    "memberOf": {
+      "@type": "Organization",
+      "name": "Global Web3 Community"
+    }
+  };
 
   const responsiveStyles = `
   @media (max-width: 1024px) {
@@ -105,7 +159,19 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
-      <Navigation />
+      
+      <header className="relative z-50">
+        <Navigation />
+      </header>
+
+      <main>
+
+      {/* Loading State */}
+      {isLoading && (
+        <div className="fixed inset-0 bg-white z-50 flex items-center justify-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600"></div>
+        </div>
+      )}
 
       {/* Hero Section */}
       {/* <section className="relative py-20 lg:py-32">
@@ -140,10 +206,18 @@ export default function Home() {
       <section className="relative pt-24 z-10 min-h-screen bg-white overflow-hidden" id="home">
 
         <div className="absolute inset-0 z-0">
-          <img
+          <Image
             src="/Asset 1 21.png"
             alt="Hero Globe"
-            className="w-full h-full object-cover object-center"
+            // className="w-full h-full object-cover object-center"
+            fill
+            priority
+            className="object-cover object-center"
+            sizes="100vw"
+            quality={85}
+            placeholder="blur"
+            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
+            onError={() => handleImageError('/Asset 1 21.png')}
           />
 
           <div className="absolute inset-0 bg-white/10 md:bg-transparent"></div>
@@ -163,7 +237,7 @@ export default function Home() {
               (a decentralized ecosystem)
             </p> */}
 
-            <Link href="https://nas.io/web3jh">
+            <Link href="https://chat.whatsapp.com/D1sSYDN7Lxn7ZUvfxoBAUi">
               <Button 
                 size="lg" 
                 className="inline-flex items-center mt-8 px-8 py-3 bg-pink-600 hover:bg-pink-700 text-white font-bold text-lg rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 no-underline"
@@ -226,10 +300,20 @@ export default function Home() {
             </div>
 
             <div className="flex justify-center -mt-2">
-              <img
+              {/* <img
                 src="/Web3 JharkhandHomePage.png"
                 alt="Web3 Jharkhand Community"
                 className="w-full h-full object-cover"
+              /> */}
+              <Image
+                src="/Web3 JharkhandHomePage.png"
+                alt="Web3JH community members collaborating on blockchain projects in Jharkhand"
+                width={600}
+                height={400}
+                className="w-full h-auto object-cover"
+                loading="lazy"
+                
+                onError={() => handleImageError('/Web3 JharkhandHomePage.png')}
               />
             </div>
           </div>
@@ -285,12 +369,12 @@ export default function Home() {
                   allowFullScreen
                   aria-hidden="false"
                   tabIndex={0}
-                  title="Lu.ma Events Calendar"
+                  title="Web3JH Events Calendar - Upcoming Web3 Meetups and Workshops"
                 />
               </div>
               
               <div className="flex justify-center text-center">
-                <Link href="https://lu.ma/web3jh">
+                <Link href="https://lu.ma/web3jh" aria-label="Register for upcoming Web3JH events">
                   <Button size="lg" className="bg-gradient-to-r from-purple-600 to-blue-600 text-white font-bold border border-white/20 text-lg rounded-full shadow-2xl hover:shadow-2xl transition-all duration-300 hover:scale-105 hover:from-purple-700 hover:to-blue-700 no-underline text-center">
                     Register for Event {' '}
                     <span role="img" aria-label="check-mark-button" className="text-1xl">✅</span>
@@ -435,12 +519,15 @@ export default function Home() {
             <div className="bg-white rounded-3xl shadow-xl border border-gray-200 p-8 md:p-12 max-w-6xl mx-auto">
               <div className="overflow-hidden relative h-56">
                 {/* If you have framer-motion installed, use this animated version */}
-                <motion.div
+                <div
                   className="flex absolute"
                   style={{ 
                     width: totalWidth * 2,
                     gap: `${gap}px`
                   }}
+                >
+                  <motion.div
+                  className="flex absolute"
                   animate={{ x: [0, -totalWidth] }}
                   transition={{
                     x: {
@@ -451,20 +538,20 @@ export default function Home() {
                     }
                   }}
                 >
-                  {trainImages.map((src, idx) => (
+                  {trainImages.map((partner, idx) => (
                     <div
-                      key={`${src}-${idx}`}
-                      className="flex items-center justify-center rounded-3xl"
+                      key={`${partner.src}-${idx}`}
+                      className="flex items-center justify-center rounded-3xl bg-gray-800 border-2 border-gray-700"
                       style={{
                         width: slideWidth,
                         height: '200px',
-                        background: '#181818',
-                        border: '3px solid #222',
+                        // background: '#181818',
+                        // border: '3px solid #222',
                         boxShadow: '0 6px 30px rgba(46,143,255,0.15), 0 2px 6px rgba(0,0,0,0.1)',
                         transition: 'box-shadow 0.3s'
                       }}
                     >
-                      <img
+                      {/* <img
                         src={src}
                         alt={`Partner ${idx % images.length + 1}`}
                         style={{
@@ -474,10 +561,31 @@ export default function Home() {
                           borderRadius: '1rem',
                           background: '#222'
                         }}
-                      />
+                      /> */}
+                      {!imageErrors.has(partner.src) ? (
+                          <Image
+                            src={partner.src}
+                            alt={partner.alt}
+                            width={320}
+                            height={170}
+                            className="object-contain rounded-xl bg-gray-900"
+                            style={{
+                              width: '95%',
+                              height: '85%',
+                            }}
+                            loading="lazy"
+                            onError={() => handleImageError(partner.src)}
+                          />
+                        ) : (
+                          <div className="text-white text-center p-4">
+                            <div className="text-gray-400">Partner Logo</div>
+                          </div>
+                        )}
                     </div>
                   ))}
                 </motion.div> 
+                </div>
+                
 
                 {/* Static version without animation (if framer-motion is not installed) */}
                 {/* <div className="flex gap-6 justify-center items-center flex-wrap">
@@ -514,10 +622,15 @@ export default function Home() {
               <div className="flex flex-col lg:flex-row items-center p-8 lg:p-16 gap-8 lg:gap-14">
                 {/* Left: Image */}
                 <div className="flex-1 lg:flex-initial lg:w-2/5">
-                  <img
-                    src="/avax_rnc1.JPG"
-                    alt="Support Web3JH"
+                  <Image
+                    src="/avax_rnc1.webp"
+                    alt="Web3JH team at Avalanche event - supporting blockchain innovation in Jharkhand"
+                    width={500}
+                    height={400}
                     className="w-full max-w-md mx-auto rounded-2xl shadow-lg object-cover"
+                    loading="lazy"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    onError={() => handleImageError('/avax_rnc1.webp')}
                   />
                 </div>
 
@@ -607,13 +720,13 @@ export default function Home() {
             Connect with like-minded innovators, learn cutting-edge technologies, and build the future of decentralized applications.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="https://nas.io/web3jh">
+            <Link href="https://chat.whatsapp.com/D1sSYDN7Lxn7ZUvfxoBAUi" aria-label="Join Web3JH community">
               <Button size="lg" className="bg-gradient-to-r from-orange-200 to-yellow-200 text-yellow-700 font-bold border border-white/20 text-lg rounded-xl shadow-2xl hover:shadow-2xl transition-all duration-300 hover:scale-105 hover:from-orange-300 hover:to-yellow-200 ring-1 ring-white/10 backdrop-blur-md text-center">
                 Join Our Community {' '}
                 <span role="img" aria-label="flexed-biceps" className="text-2xl">💪</span>
               </Button>
             </Link>
-            <Link href="/events">
+            <Link href="/events" aria-label="View upcoming Web3JH events">
               <Button size="lg" className="bg-gradient-to-r from-orange-200 to-yellow-200 text-yellow-700 font-bold border border-white/20 text-lg rounded-xl shadow-2xl hover:shadow-2xl transition-all duration-300 hover:scale-105 hover:from-orange-300 hover:to-yellow-200 ring-1 ring-white/10 backdrop-blur-md text-center">
                 View Upcoming Events {' '}
                 <span role="img" aria-label="ticket" className="text-2xl">🎫</span>
@@ -622,6 +735,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      </main>
     </div>
   );
 }

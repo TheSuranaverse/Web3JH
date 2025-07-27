@@ -102,10 +102,28 @@ ${colorConfig
 
 const ChartTooltip = RechartsPrimitive.Tooltip;
 
+interface TooltipContentProps {
+  active?: boolean;
+  payload?: any[];
+  label?: string;
+  labelFormatter?: (label: any, payload: any[]) => React.ReactNode;
+  formatter?: (value: any, name: any, entry: any, index: number, payload: any) => React.ReactNode;
+  separator?: string;
+  wrapperClassName?: string;
+  contentStyle?: React.CSSProperties;
+  itemStyle?: React.CSSProperties;
+  labelStyle?: React.CSSProperties;
+  cursor?: any;
+  coordinate?: { x?: number; y?: number };
+  position?: { x?: number; y?: number };
+  viewBox?: { x?: number; y?: number; width?: number; height?: number };
+  labelClassName?: string;
+}
+
 const ChartTooltipContent = React.forwardRef<
   HTMLDivElement,
-  React.ComponentProps<typeof RechartsPrimitive.Tooltip> &
-    React.ComponentProps<'div'> & {
+   TooltipContentProps  &
+     React.ComponentProps<'div'> & {
       hideLabel?: boolean;
       hideIndicator?: boolean;
       indicator?: 'line' | 'dot' | 'dashed';
@@ -258,10 +276,15 @@ ChartTooltipContent.displayName = 'ChartTooltip';
 
 const ChartLegend = RechartsPrimitive.Legend;
 
+interface LegendContentProps {
+  payload?: any[];
+  verticalAlign?: 'top' | 'middle' | 'bottom';
+}
+
 const ChartLegendContent = React.forwardRef<
   HTMLDivElement,
   React.ComponentProps<'div'> &
-    Pick<RechartsPrimitive.LegendProps, 'payload' | 'verticalAlign'> & {
+    LegendContentProps  & {
       hideIcon?: boolean;
       nameKey?: string;
     }
@@ -271,7 +294,7 @@ const ChartLegendContent = React.forwardRef<
     ref
   ) => {
     const { config } = useChart();
-
+    
     if (!payload?.length) {
       return null;
     }

@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { Users, GraduationCap, MapPin, Calendar, ExternalLink, Github, Twitter, Linkedin, Globe, Award, Heart, Zap } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -7,8 +8,35 @@ import { Button } from '@/components/ui/button';
 import Navigation from '@/components/Navigation';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Community() {
+
+  const [isLoading, setIsLoading] = useState(true);
+    const [imageErrors, setImageErrors] = useState(new Set());
+  
+    useEffect(() => {
+      // Preload critical images
+      const criticalImages = [
+        '/Asset 1 21.png',
+        '/Web3 JharkhandHomePage.png',
+        '/avax_rnc1.webp'
+      ];
+  
+      const imagePromises = criticalImages.map(src => {
+        return new Promise((resolve, reject) => {
+          const img = new window.Image();
+          img.onload = resolve;
+          img.onerror = reject;
+          img.src = src;
+        });
+      });
+  
+      Promise.allSettled(imagePromises).then(() => {
+        setIsLoading(false);
+      });
+    }, []);
+
   const colleges = [
     { 
       name: 'BIT Mesra', 
@@ -36,35 +64,35 @@ export default function Community() {
       location: 'Ranchi', 
       members: '70+', 
       status: 'Active',
-      description: 'Interdisciplinary approach to blockchain applications'
+      description: 'Established in 2017, SBU Ranchi aims to create new benchmarks for quality education in various fields viz. Technical, Professional, etc.'
     },
     { 
-      name: 'BIT Mesra, Lalpur', 
+      name: 'BIT Lalpur', 
       location: 'Lalpur', 
       members: '80+', 
       status: 'Active',
-      description: 'Strong focus on DeFi and smart contract development'
+      description: 'Established in 1998, BIT Lalpur focus on developing innovative thinking among students and nurturing next-generation leaders on industry-driven curriculum '
     },
     { 
       name: 'Arka Jain University', 
       location: 'Jamshedpur', 
       members: '100+', 
       status: 'Growing',
-      description: 'Strong focus on DeFi and smart contract development'
+      description: 'Established in 2017, AJU aims to develop human capital - creating spirited learning environment by empowering the students with knowledge and skills'
     },
     { 
       name: 'BIT Sindri', 
       location: 'Dhanbad', 
       members: '50+', 
       status: 'Growing',
-      description: 'Strong focus on DeFi and smart contract development'
+      description: 'Established in 1950, BIT Sindri aim to provide the valuable human resources for the industry and society through the excellence in technical education'
     },
     { 
       name: 'Amity University', 
       location: 'Ranchi', 
       members: '25+', 
       status: 'New',
-      description: 'Bringing Web3 education to rural areas of Jharkhand'
+      description: 'Established in 2016, AUJ Ranchi aims to disseminate and advance knowledge and skill by providing instructional, research, and extension facilities'
     }
   ];
 
@@ -142,34 +170,38 @@ export default function Community() {
 
   const communityStats = [
     { label: 'Total Members', value: '1,000+' },
-    { label: 'College Chapters', value: '6' },
-    { label: 'Cities Covered', value: '4' },
+    { label: 'College Chapters', value: '8' },
+    { label: 'Cities Covered', value: '5+' },
     { label: 'Total Events', value: '25+' },
     { label: 'Industry Partners', value: '10+' },
     { label: 'Projects Completed', value: '5+' }
   ];
 
-  const images = [
-    "/foundership_logo.png",
-    "/solanaLogo 1.png",
-    "/tezos-india-logo 1.png",
-    "/AvalancheLogo_Horizontal_4C_Primary_KO.png",
-    "/ascendex_logo.png",
-    "/Shardeum-768x432-PhotoRoom 1.png",
-    "/dapps 1.png",
-    "/Group-4-7-1024x248.png",
-    "/trans. (white)(horizontal).png",
-    "/bg_black_small-removebg-preview 1.png",
-    "/20230810_173627_0001-removebg-preview 1.png",
-    "/White H.png",
-    "/image 9.png"
+  const partnerImages  = [
+    { src: "/foundership_logo.png", alt: "Foundership"},
+    { src: "/solanaLogo 1.png", alt: "Solana" },
+    { src: "/tezos-india-logo 1.png", alt: "Tezos India" },
+    { src: "/AvalancheLogo_Horizontal_4C_Primary_KO.png", alt: "Avalanche" },
+    { src: "/ascendex.png", alt: "AscendEx - Crypto Exchange Partner" },
+    { src: "/Shardeum-768x432-PhotoRoom 1.png", alt: "Shardeum - Blockchain Partner" },
+    { src: "/dapps 1.png", alt: "DApps.co - Decentralized Applications Partner" },
+    { src: "/Group-4-7-1024x248.png", alt: "NomoEx" },
+    { src: "/trans. (white)(horizontal).png", alt: "Paycoin Capital" },
+    { src: "/bg_black_small-removebg-preview 1.png", alt: "DEVs Dungeon - Developer Community" },
+    { src: "/20230810_173627_0001-removebg-preview 1.png", alt: "Techavtar" },
+    { src: "/White H.png", alt: "Strix media" },
+    { src: "/image 9.png", alt: "Zuraverse" }
   ];
 
   const slideWidth = 350;
   const gap = 30;
 
-  const trainImages = [...images, ...images];
-  const totalWidth = images.length * (slideWidth + gap);
+  const trainImages = [...partnerImages , ...partnerImages ];
+  const totalWidth = partnerImages.length * (slideWidth + gap);
+
+  const handleImageError = (src: string) => {
+    setImageErrors(prev => new Set(prev).add(src));
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
@@ -248,9 +280,9 @@ export default function Community() {
                       <span>Led by {college.lead}</span>
                     </div> */}
                   </div>
-                  <Button className="w-full mt-4" variant="outline">
+                  {/* <Button className="w-full mt-4" variant="outline">
                     Join Chapter
-                  </Button>
+                  </Button> */}
                 </CardContent>
               </Card>
             ))}
@@ -291,12 +323,15 @@ export default function Community() {
           </div>
           <div className="bg-gray-50 rounded-3xl shadow-xl border border-gray-100 p-8 md:p-12 max-w-6xl mx-auto">
               <div className="overflow-hidden relative h-56">
-                <motion.div
+                <div
                   className="flex absolute"
                   style={{ 
                     width: totalWidth * 2,
                     gap: `${gap}px`
                   }}
+                >
+                  <motion.div
+                  className="flex absolute"
                   animate={{ x: [0, -totalWidth] }}
                   transition={{
                     x: {
@@ -307,20 +342,20 @@ export default function Community() {
                     }
                   }}
                 >
-                  {trainImages.map((src, idx) => (
+                  {trainImages.map((partner, idx) => (
                     <div
-                      key={`${src}-${idx}`}
-                      className="flex items-center justify-center rounded-3xl"
+                      key={`${partner.src}-${idx}`}
+                      className="flex items-center justify-center rounded-3xl bg-gray-800 border-2 border-gray-700"
                       style={{
                         width: slideWidth,
                         height: '200px',
-                        background: '#181818',
-                        border: '3px solid #222',
+                        // background: '#181818',
+                        // border: '3px solid #222',
                         boxShadow: '0 6px 30px rgba(46,143,255,0.15), 0 2px 6px rgba(0,0,0,0.1)',
                         transition: 'box-shadow 0.3s'
                       }}
                     >
-                      <img
+                      {/* <img
                         src={src}
                         alt={`Partner ${idx % images.length + 1}`}
                         style={{
@@ -330,10 +365,31 @@ export default function Community() {
                           borderRadius: '1rem',
                           background: '#222'
                         }}
-                      />
+                      /> */}
+                      {!imageErrors.has(partner.src) ? (
+                          <Image
+                            src={partner.src}
+                            alt={partner.alt}
+                            width={320}
+                            height={170}
+                            className="object-contain rounded-xl bg-gray-900"
+                            style={{
+                              width: '95%',
+                              height: '85%',
+                            }}
+                            loading="lazy"
+                            onError={() => handleImageError(partner.src)}
+                          />
+                        ) : (
+                          <div className="text-white text-center p-4">
+                            <div className="text-gray-400">Partner Logo</div>
+                          </div>
+                        )}
                     </div>
                   ))}
                 </motion.div> 
+                </div>
+                
               </div>
             </div>
 
@@ -366,7 +422,7 @@ export default function Community() {
             Connect with passionate developers, learn from industry experts, and build the future of Web3 in Jharkhand.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="https://nas.io/web3jh">
+            <Link href="https://chat.whatsapp.com/D1sSYDN7Lxn7ZUvfxoBAUi">
               <Button size="lg" className="bg-gradient-to-r from-orange-200 to-yellow-200 text-yellow-700 font-bold border border-white/20 text-lg rounded-xl shadow-2xl hover:shadow-2xl transition-all duration-300 hover:scale-105 hover:from-orange-300 hover:to-yellow-200 ring-1 ring-white/10 backdrop-blur-md text-center">
                 Join Our Community
                 <ExternalLink className="w-4 h-4 ml-2" />

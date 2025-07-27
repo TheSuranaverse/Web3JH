@@ -1,43 +1,133 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-IN">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="Web3JH_Logo_White-no-bg 2.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="Web3JH_Logo_White-no-bg 2.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
-
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>Web3 Jharkhand</title>
+    <meta name="theme-color" content="#7c3aed" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    
+    <!-- Primary Meta Tags -->
+    <title>Web3JH | India's Leading Web3 & Blockchain Community in Jharkhand</title>
+    <meta name="title" content="Web3JH | India's Leading Web3 & Blockchain Community" />
+    <meta name="description" content="Join Web3JH, India's leading Web3 & Blockchain community based in Jharkhand. Empowering developers, crypto enthusiasts, and startups to build decentralized applications and shape the future of Web3." />
+    <meta name="keywords" content="Web3JH, Web3 India, Blockchain Jharkhand, Web3 community, Crypto Ranchi, DeFi India, NFT community, Smart contracts, Ethereum India, Bitcoin Jharkhand, Web3 developers, Blockchain events" />
+    <meta name="author" content="Web3JH Team" />
+    
+    <!-- Favicon and App Icons -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.json" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://web3jh.xyz/" />
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://web3jh.xyz/" />
+    <meta property="og:title" content="Web3JH | India's Leading Web3 & Blockchain Community" />
+    <meta property="og:description" content="Join Web3JH, India's leading Web3 & Blockchain community based in Jharkhand. Empowering developers, crypto enthusiasts, and startups to build decentralized applications." />
+    <meta property="og:image" content="https://web3jh.xyz/preview.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Web3JH - India's Leading Web3 & Blockchain Community" />
+    <meta property="og:site_name" content="Web3JH" />
+    <meta property="og:locale" content="en_IN" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://web3jh.xyz/" />
+    <meta name="twitter:title" content="Web3JH | India's Leading Web3 & Blockchain Community" />
+    <meta name="twitter:description" content="Join Web3JH, India's leading Web3 & Blockchain community based in Jharkhand. Empowering developers, crypto enthusiasts, and startups to build decentralized applications." />
+    <meta name="twitter:image" content="https://web3jh.xyz/preview.png" />
+    <meta name="twitter:image:alt" content="Web3JH - India's Leading Web3 & Blockchain Community" />
+    <meta name="twitter:site" content="@Web3JH" />
+    <meta name="twitter:creator" content="@Web3JH" />
+    
+    <!-- Additional SEO Meta Tags -->
+    <meta name="geo.region" content="IN-JH" />
+    <meta name="geo.placename" content="Jharkhand, India" />
+    <meta name="geo.position" content="23.6102;85.2799" />
+    <meta name="ICBM" content="23.6102, 85.2799" />
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://web3jh.xyz/#organization",
+          "name": "Web3JH",
+          "url": "https://web3jh.xyz",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://web3jh.xyz/Web3JH_512.png",
+            "width": 512,
+            "height": 512
+          },
+          "foundingDate": "2022",
+          "foundingLocation": {
+            "@type": "Place",
+            "name": "Jharkhand, India"
+          },
+          "areaServed": {
+            "@type": "Country",
+            "name": "India"
+          },
+          "sameAs": [
+            "https://twitter.com/Web3JH",
+            "https://github.com/Web3JH",
+            "https://linkedin.com/company/web3jh",
+            "https://instagram.com/web3jh"
+          ],
+          "description": "Web3JH is India's leading Web3 & Blockchain community based in Jharkhand — empowering developers, startups, and crypto natives to build decentralized applications and shape the future of the internet.",
+          "knowsAbout": [
+            "Web3",
+            "Blockchain",
+            "Cryptocurrency",
+            "Decentralized Applications",
+            "Smart Contracts",
+            "DeFi",
+            "NFT"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://web3jh.xyz/#website",
+          "url": "https://web3jh.xyz",
+          "name": "Web3JH",
+          "description": "India's Leading Web3 & Blockchain Community",
+          "publisher": {
+            "@id": "https://web3jh.xyz/#organization"
+          },
+          "inLanguage": "en-IN"
+        }
+      ]
+    }
+    </script>
+    
+    <!-- Performance Hints -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="//www.google-analytics.com" />
+    
+    <!-- Security -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="DENY" />
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <noscript>
+      <div style="text-align: center; padding: 50px; font-family: Arial, sans-serif;">
+        <h1>JavaScript Required</h1>
+        <p>You need to enable JavaScript to run the Web3JH website and access our Web3 & Blockchain community features.</p>
+        <p>Please enable JavaScript in your browser settings and refresh the page.</p>
+      </div>
+    </noscript>
     <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
   </body>
 </html>

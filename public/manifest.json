@@ -1,6 +1,16 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "name": "Web3JH | India's Leading Web3 & Blockchain Community",
+  "short_name": "Web3JH",
+  "description": "Join Web3JH, India's leading Web3 & Blockchain community based in Jharkhand — empowering developers, startups, and crypto enthusiasts to build decentralized applications and shape the future of the internet.",
+  "lang": "en-IN",
+  "dir": "ltr",
+  "start_url": "/?utm_source=pwa&utm_medium=standalone",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#7c3aed",
+  "orientation": "portrait-primary",
+  "categories": ["community", "education", "technology", "blockchain", "decentralization", "social"],
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,18 +18,29 @@
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
+      "src": "Web3JH_192.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "192x192",
+      "purpose": "any maskable"
     },
     {
-      "src": "logo512.png",
+      "src": "Web3JH_512.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "512x512",
+      "purpose": "any maskable"
     }
   ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "related_applications": [
+    {
+      "platform": "web",
+      "url": "https://web3jh.xyz"
+    }
+  ],
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  }
 }
